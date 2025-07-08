@@ -1,0 +1,81 @@
+*** git rebase ***
+
+Workflow:
+
+1. git checkout master
+2. git pull origin master
+3. git checkout feature_branch
+4. git rebase master (apply changes (commits) of your feature_branch on top of your master, creates a clean history)
+Note: This creates a new feature branch and you wont be able to push to that feature branch any more (IF force push is disabled). 
+Do this therefore before you merge into the master.
+In case of a conflict do the following:
+	5. resolve conflict
+	6. git add <resolved file>
+	7. git rebase --continue
+
+8. git checkout master
+9. git merge feature_branch (that would be the pull request)
+
+Summary of Rebase commands:
+
+git checkout master
+git pull origin master
+git checkout your-branch-name
+git rebase master
+# Resolve conflicts, if any:
+# git add <conflicted-file>
+# git rebase --continue
+git push --force-with-lease origin your-branch-name
+git checkout master
+git pull origin master
+git merge --ff-only your-branch-name
+git push origin master
+
+
+** git tagging **
+
+1. Anlegen (lokal + remote): git tag <name> + git push origin --tags
+2. Löschen (lokal + remote): git tag -d <name> + git push origin :refs/tags/<name>
+3. Verschieben: Löschen + Anlegen
+4. Checkout für Jenkins: git checkout <name>
+
+https://git-scm.com/book/en/v2/Git-Basics-Tagging
+
+** git credential caching **
+
+1. git config credential.helper store
+2. $ git push https://github.com/repo.git
+
+Username for 'https://github.com': <USERNAME>
+Password for 'https://USERNAME@github.com': <PASSWORD>
+
+** Remote Repo URL **
+
+git remote get-url origin
+
+** Git show commit history of a specific file
+
+git log -p --name-only <file>
+
+** To see the differences in file.txt between the main branch and the feature branch
+git diff main feature file.txt
+
+** View Changes in a File in a Specific Commit
+
+git diff <commit> <file>
+
+** Check which files have been changed in a specific commit:
+
+git show --name-only <commit>
+
+** Diff for a specific file between 2 Releases
+
+git diff v1.0 v2.0 -- path/to/file
+
+** Show changes for each commit in a specific file
+
+git log -p --follow -- filename
+
+
+
+
